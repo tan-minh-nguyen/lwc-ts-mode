@@ -1,0 +1,73 @@
+#+TITLE: lwc-ts-mode
+#+AUTHOR: Tan Nguyen
+#+EMAIL: tan.nguyen.w.information@gmail.com
+
+* lwc-ts-mode
+
+Tree-sitter based major modes for Salesforce Lightning Web Components in Emacs.
+
+** Features
+
+- =lwc-ts-mode= - Automatic mode detection for LWC files
+- =lwc-js-ts-mode= - JavaScript/ES6 mode for LWC controllers
+- =lwc-html-ts-mode= - HTML mode for LWC templates
+- Syntax highlighting via tree-sitter
+- Indentation support
+- Imenu navigation
+
+** Requirements
+
+- Emacs 29.1+ (with tree-sitter support)
+- tree-sitter-javascript grammar
+- tree-sitter-html grammar
+
+** Installation
+
+*** Grammar Installation
+
+#+begin_src emacs-lisp
+(add-to-list 'treesit-language-source-alist
+             '(javascript "https://github.com/tree-sitter/tree-sitter-javascript"))
+(add-to-list 'treesit-language-source-alist
+             '(html "https://github.com/tree-sitter/tree-sitter-html"))
+(treesit-install-language-grammar 'javascript)
+(treesit-install-language-grammar 'html)
+#+end_src
+
+*** Package Installation
+
+Add to your load-path:
+
+#+begin_src emacs-lisp
+(add-to-list 'load-path "/path/to/lwc-ts-mode")
+(require 'lwc-ts-mode)
+#+end_src
+
+** Standalone Usage
+
+The modes work independently without Salesforce CLI:
+
+#+begin_src emacs-lisp
+(require 'lwc-ts-mode)
+;; LWC .js and .html files in lwc/ directories auto-detect the mode
+#+end_src
+
+** File Detection
+
+LWC files are detected by directory structure:
+
+- =force-app/main/default/lwc/<component>/<component>.js= → =lwc-js-ts-mode=
+- =force-app/main/default/lwc/<component>/<component>.html= → =lwc-html-ts-mode=
+
+** Salesforce Integration (Optional)
+
+For Salesforce project awareness:
+
+#+begin_src emacs-lisp
+(require 'salesforce-mode)
+;; lwc-ts-common.el will use salesforce-project for metadata paths
+#+end_src
+
+** License
+
+GPL-3.0
