@@ -196,24 +196,6 @@
                                                  (:language "javascript" :scheme "file")
                                                  (:language "typescript" :scheme "file")]))))
 
-;; configuration lsp bridge
-;; (defvar lwc-lsp-mode--root-dir (file-name-directory load-file-name)
-;;   "Root directory.")
-
-;; (when (require 'lsp-bridge nil t)
-;;   (with-eval-after-load 'lsp-bridge
-;;     (add-to-list 'lsp-bridge-single-lang-server-mode-list '(lwc-html-ts-mode . "lwc"))
-;;     (add-to-list 'lsp-bridge-formatting-indent-alist '(lwc-html-ts-mode . lwc-ts-mode--indent-offset))))
-
-;; ;; Enable lsp-bridge
-;; (defun lsp-bridge-lwc-mode ()
-;;   (interactive)
-;;   (let ((langserver-dir (concat lwc-lsp-mode--root-dir "/language-server/")))
-
-;;     (setq-local lsp-bridge-user-langserver-dir langserver-dir)
-
-;;     (lsp-bridge-mode)))
-
 (add-to-list 'auto-mode-alist '("\\.html\\'" . lwc-html-mode-auto))
 
 (provide 'lwc-html-ts-mode)

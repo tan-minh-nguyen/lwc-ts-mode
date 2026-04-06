@@ -44,17 +44,25 @@
 (require 'lwc-js-ts-mode)
 (require 'lwc-html-ts-mode)
 
-;;; LSP Setup
+(defcustom lwc-ts-mode--lsp-bin "lwc-language-server"
+  "Path to the LWC Language Server executable.
+This should be either an absolute path or the name of an executable available in `exec-path'."
+  :type 'string
+  :group 'lwc)
 
-(defun lwc-mode-eglot-setup ()
-  "Setup LWC LSP for Eglot."
-  (when (and (boundp 'eglot-server-programs)
-             (boundp 'lwc-ts-mode--lsp-path)
-             (boundp 'lwc-ts-mode--eglot-config))
-    (add-to-list 'eglot-server-programs
-                 `(((lwc-html-ts-mode :language-id "lwc-html")
-                    (lwc-js-ts-mode :language-id "lwc-javascript"))
-                   (,lwc-ts-mode--lsp-path "--stdio" ,@lwc-ts-mode--eglot-config)))))
+(defcustom lwc-ts-mode--eglot-config '()
+  "Configuration settings for LWC Language Server Protocol (LSP) initialization.
+This list will be passed to Eglot for configuring the LSP client."
+  :type 'list
+  :group 'lwc)
+
+;;; LSP Setup
+(with-eval-after-load 'eglot
+  (add-to-list 'eglot-server-programs
+               (cons '((lwc-html-ts-mode :language-id "lwc-html")
+                       (lwc-js-ts-mode :language-id "lwc-javascript"))
+                     (lambda (&rest _)
+                       `(,lwc-ts-mode--lsp-bin "--stdio" ,@lwc-ts-mode--eglot-config)))))
 
 (provide 'lwc-ts-mode)
 ;;; lwc-ts-mode.el ends here

@@ -4,18 +4,6 @@
 (require 'treesit)
 (require 'sgml-mode)
 
-(defcustom lwc-ts-mode--lsp-path "lwc-language-server"
-  "Path to the LWC Language Server executable.
-This should be either an absolute path or the name of an executable available in `exec-path'."
-  :type 'string
-  :group 'lwc)
-
-(defcustom lwc-ts-mode--eglot-config '()
-  "Configuration settings for LWC Language Server Protocol (LSP) initialization.
-This list will be passed to Eglot for configuring the LSP client."
-  :type 'list
-  :group 'lwc)
-
 (defun lwc-ts-mode--fontify-expression (node override start end &rest _)
   "Apply syntax highlighting to LWC template expressions in the given NODE.
 NODE is the treesit node to process. OVERride determines how face properties
